@@ -74,7 +74,7 @@ def partition(dados,inicio,fim):
 
 #Programa Principal
 dados = [50,25,92,16,76,30,43,54,19]
-quickSort(dados,0,len(dados)-1)
+mergeSort(dados)
 print(dados)
 
 
