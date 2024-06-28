@@ -11,109 +11,101 @@
 #As numerações dos cartões verdes (V) inicial em 1.
 
 #Cria cada elemento da lista
-class ElementoDaListaSimples:
-# construtor de inicialização da classe
-    def __init__(self, dado):
-        self.dado = dado
+class Nodo:
+    def __init__(self, numero, cor):
+        self.numero = numero
+        self.cor = cor
         self.proximo = None
 
-#__repr__ é um método especial do Python
-#use-o para criar a maneira como objeto
-#é mostrado fora da função print
-    def __repr__(self):
-        return self.dado
 
-#Cria a lista encadeada simples
-class ListaEncadeadaSimples:
-  def __init__(self, nodos=None):
-    self.head = None
-    if nodos is not None:
-        nodo = ElementoDaListaSimples(dado=nodos.pop(0))
-        self.head = nodo
-        for elem in nodos:
-            nodo.proximo = ElementoDaListaSimples(dado=elem)
-            nodo = nodo.proximo
+class ListaEncadeada:
+    def __init__(self):
+        self.head = None
+        self.numero_amarelo = 201
+        self.numero_verde = 1
 
-  def __repr__(self):
-      nodo = self.head
-      nodos = []
-      while nodo is not None:
-          nodos.append(nodo.dado)
-          nodo = nodo.proximo
-      nodos.append("None")
-      return " -> ".join(nodos)
+    def inserirSemPrioridade(self, nodo):
+        if self.head is None:
+            self.head = nodo
+        else:
+            atual = self.head
+            while atual.proximo:
+                atual = atual.proximo
+            atual.proximo = nodo
 
-#Varre a lista
-  def __iter__(self):
-    nodo = self.head
-    while nodo is not None:
-        yield nodo
-        nodo = nodo.proximo
+    def inserirComPrioridade(self, nodo):
+        if self.head is None or self.head.cor == "V":
+            nodo.proximo = self.head
+            self.head = nodo
+        else:
+            atual = self.head
+            while atual.proximo and atual.proximo.cor == "A":
+                atual = atual.proximo
+            nodo.proximo = atual.proximo
+            atual.proximo = nodo
 
-  def inserirNoInicio(self, nodo):
-    nodo.proximo = self.head
-    self.head = nodo
-
-  def inserirNoFinal(self, nodo):
-    if self.head is None:
-        self.head = nodo
-        return
-
-    nodo_atual = self.head
-    while nodo_atual.proximo != None:
-        nodo_atual = nodo_atual.proximo
-
-    nodo_atual.proximo = nodo
-    return
-
-  def deletar(self, dado):
-    if self.head is None:
-        raise Exception("A lista está vazia!")
-
-    if self.head.dado == dado:
-        self.head = self.head.proximo
-        return
-
-    nodo_anterior = self.head
-    for nodo in self:
-        if nodo.dado == dado:
-            nodo_anterior.proximo = nodo.proximo
+    def inserir(self):
+        cor = input("Digite a cor do cartão (A ou V): ").strip().lower()
+        if cor == "a":
+            numero = self.numero_amarelo
+            self.numero_amarelo += 1
+        elif cor == "v":
+            numero = self.numero_verde
+            self.numero_verde += 1
+        else:
+            print("Cor inválida. Use 'A' para amarelo e 'V' para verde.")
             return
-        nodo_anterior = nodo
 
-    raise Exception("Nó com o dado '%s' não foi econtrado." % dado)
+        novo_nodo = Nodo(numero, cor.upper())
+        if self.head is None:
+            self.head = novo_nodo
+        elif cor == "v":
+            self.inserirSemPrioridade(novo_nodo)
+        else:
+            self.inserirComPrioridade(novo_nodo)
+
+        print(f"Paciente inserido com sucesso. Cartão {novo_nodo.numero} - Cor {novo_nodo.cor}")
+
+    def imprimirListaEspera(self):
+        atual = self.head
+        while atual:
+            print(f"Cartão {atual.numero} - Cor {atual.cor}")
+            atual = atual.proximo
+
+    def atenderPaciente(self):
+        if self.head is None:
+            print("Não há pacientes na fila.")
+        else:
+            print(f"Chamando paciente com cartão {self.head.numero} - Cor {self.head.cor}")
+            self.head = self.head.proximo
 
 
+def menu():
+    lista = ListaEncadeada()
+    while True:
+        print("\nMenu:")
+        print("1 – Adicionar paciente a fila")
+        print("2 – Mostrar pacientes na fila")
+        print("3 – Chamar paciente")
+        print("4 – Sair")
+        opcao = input("Escolha uma opção: ").strip()
+        if opcao == "1":
+            lista.inserir()
+        elif opcao == "2":
+            lista.imprimirListaEspera()
+        elif opcao == "3":
+            lista.atenderPaciente()
+        elif opcao == "4":
+            print("Encerrando o programa.")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
 
-###################### Execução ##########################
 
-Teste = ListaEncadeadaSimples()
-while True:
-      print('1 - Inserir na início da lista encadeada')
-      print('2 - Inserir na final da lista encadeada')
-      print('3 - Remover da lista encadeada')
-      print('4 - Imprimir a lista encadeada')
-      print('5 - Sair')
+################# EXECUÇÃO #######################
 
-      op = int(input("Escolha uma opção:"))
-      if op == 1:
-          dado = input('Qual número deseja inserir?')
-          Teste.inserirNoInicio(ElementoDaListaSimples(dado))
-      if op == 2:
-          dado = input('Qual número deseja inserir?')
-          Teste.inserirNoFinal(ElementoDaListaSimples(dado))
-      elif op == 3:
-          dado = input('Qual número deseja remover?')
-          Teste.deletar(dado)
-      elif op == 4:
-          for nodo in Teste:
-              print(nodo, end=' -> ')
-          print('None')
-      elif op == 5:
-          print('Encerrando...')
-          break
-      else:
-          print("Selecione outra opção!\n")
+menu()
+
 
 
 # Elabore um programa em Python que:
