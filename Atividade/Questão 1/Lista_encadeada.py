@@ -102,7 +102,7 @@ def menu():
             print("Opção inválida. Tente novamente.")
 
 
-################# EXECUÇÃO #######################
+
 
 menu()
 
