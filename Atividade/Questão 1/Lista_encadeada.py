@@ -10,7 +10,7 @@
 #As numerações dos cartões amarelos (A) iniciam em 201.
 #As numerações dos cartões verdes (V) inicial em 1.
 
-#Cria cada elemento da lista
+
 class Nodo:
     def __init__(self, numero, cor):
         self.numero = numero
