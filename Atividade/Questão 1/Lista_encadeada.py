@@ -3,37 +3,42 @@
 # verde (V) ou amarelo (A), que define o menor ou maior grau de urgência da ocorrência, respectivamente. Para informatizar esse processo, a direção
 # do hospital contratou você para desenvolver uma fila de chamada seguindo as seguintes regras:
 
+# Elabore um programa em Python que:
 
-#Pacientes com cartão numerado amarelo (A) são chamados antes dos pacientes com cartão numerado verde (V)
-#Entre os pacientes com cartão numerado amarelo (A), os que tem numeração menor são atendidos antes.
-#Entre os pacientes com cartão numerado verde (V), os que tem numeração menor são atendidos antes.
-#As numerações dos cartões amarelos (A) iniciam em 201.
-#As numerações dos cartões verdes (V) inicial em 1.
+#A. Deve-se implementar uma Lista Encadeada Simples em que: [EXIGÊNCIA DE CÓDIGO 1 de 7];
 
-
+#a. O Nodo representa um cartão numerado contendo: número, cor e um ponteiro para o próximo;
 class Nodo:
     def __init__(self, numero, cor):
         self.numero = numero
         self.cor = cor
         self.proximo = None
 
-
+#b. A lista contém um ponteiro para a cabeça da lista (head);
 class ListaEncadeada:
     def __init__(self):
         self.head = None
+        # As numerações dos cartões amarelos (A) iniciam em 201.
         self.numero_amarelo = 201
+        # As numerações dos cartões verdes (V) inicial em 1.
         self.numero_verde = 1
 
+# B. Deve-se implementar a função inserirSemPrioridade(nodo) em que: [EXIGÊNCIA DE CÓDIGO 2 de 7];
     def inserirSemPrioridade(self, nodo):
         if self.head is None:
             self.head = nodo
         else:
             atual = self.head
+            # a. Deve-se andar pela lista a partir da cabeça (head) e inserir o nodo no final da lista.
             while atual.proximo:
                 atual = atual.proximo
             atual.proximo = nodo
 
+    # Entre os pacientes com cartão numerado verde (V), os que tem numeração menor são atendidos antes.
+    # Entre os pacientes com cartão numerado amarelo (A), os que tem numeração menor são atendidos antes.
     def inserirComPrioridade(self, nodo):
+
+
         if self.head is None or self.head.cor == "V":
             nodo.proximo = self.head
             self.head = nodo
@@ -44,11 +49,14 @@ class ListaEncadeada:
             nodo.proximo = atual.proximo
             atual.proximo = nodo
 
+
+
     def inserir(self):
         cor = input("Digite a cor do cartão (A ou V): ").strip().lower()
         if cor == "a":
             numero = self.numero_amarelo
             self.numero_amarelo += 1
+
         elif cor == "v":
             numero = self.numero_verde
             self.numero_verde += 1
@@ -71,7 +79,7 @@ class ListaEncadeada:
         while atual:
             print(f"Cartão {atual.numero} - Cor {atual.cor}")
             atual = atual.proximo
-
+    # Pacientes com cartão numerado amarelo (A) são chamados antes dos pacientes com cartão numerado verde (V)
     def atenderPaciente(self):
         if self.head is None:
             print("Não há pacientes na fila.")
@@ -108,17 +116,9 @@ menu()
 
 
 
-# Elabore um programa em Python que:
 
-#A. Deve-se implementar uma Lista Encadeada Simples em que: [EXIGÊNCIA DE CÓDIGO 1 de 7];
 
-#                a. O Nodo representa um cartão numerado contendo: número, cor e um ponteiro para o próximo;
 
-#                b. A lista contém um ponteiro para a cabeça da lista (head);
-
-#B. Deve-se implementar a função inserirSemPrioridade(nodo) em que: [EXIGÊNCIA DE CÓDIGO 2 de 7];
-
-#                a. Deve-se andar pela lista a partir da cabeça (head) e inserir o nodo no final da lista.
 
 #C. Deve-se implementar a função inserirComPrioridade(nodo) em que: [EXIGÊNCIA DE CÓDIGO 3 de 7];
 
