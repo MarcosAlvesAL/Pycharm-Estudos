@@ -15,6 +15,8 @@ class Nodo:
         self.proximo = None
 
 #b. A lista contém um ponteiro para a cabeça da lista (head);
+# Entre os pacientes com cartão numerado verde (V), os que tem numeração menor são atendidos antes.
+# Entre os pacientes com cartão numerado amarelo (A), os que tem numeração menor são atendidos antes.
 class ListaEncadeada:
     def __init__(self):
         self.head = None
@@ -34,14 +36,16 @@ class ListaEncadeada:
                 atual = atual.proximo
             atual.proximo = nodo
 
-    # Entre os pacientes com cartão numerado verde (V), os que tem numeração menor são atendidos antes.
-    # Entre os pacientes com cartão numerado amarelo (A), os que tem numeração menor são atendidos antes.
+    # C. Deve-se implementar a função inserirComPrioridade(nodo) em que: [EXIGÊNCIA DE CÓDIGO 3 de 7];
+
+    #b. O nodo inserido deve sempre estar antes de todos os nodos com cor “V”.
     def inserirComPrioridade(self, nodo):
 
 
         if self.head is None or self.head.cor == "V":
             nodo.proximo = self.head
             self.head = nodo
+            # a. Deve-se andar pela lista a partir da cabeça (head) e inserir o nodo após todos os nodos com cor “A” que estão na lista.
         else:
             atual = self.head
             while atual.proximo and atual.proximo.cor == "A":
@@ -49,9 +53,9 @@ class ListaEncadeada:
             nodo.proximo = atual.proximo
             atual.proximo = nodo
 
-
-
+    # D. Deve-se implementar a função inserir() em que: [EXIGÊNCIA DE CÓDIGO 4 de 7];
     def inserir(self):
+        # a. Deve-se solicitar ao usuário a cor (“A” ou “V”) e o número (inteiro).
         cor = input("Digite a cor do cartão (A ou V): ").strip().lower()
         if cor == "a":
             numero = self.numero_amarelo
@@ -63,23 +67,34 @@ class ListaEncadeada:
         else:
             print("Cor inválida. Use 'A' para amarelo e 'V' para verde.")
             return
-
+        # b. Deve-se criar um nodo com a cor e o número fornecidos pelo usuário.
         novo_nodo = Nodo(numero, cor.upper())
+        # c. Se a lista estiver vazia, a cabeça (head) da lista deve apontar para o nodo criado.
         if self.head is None:
             self.head = novo_nodo
         elif cor == "v":
+            # d. Senão, se a cor do nodo for “V”, deve-se chamar a função inserirSemPrioridade(nodo).
             self.inserirSemPrioridade(novo_nodo)
         else:
+            # e. Senão, se a cor do nodo for “A”, deve-se chamar a função inserirComPriordade(nodo).
             self.inserirComPrioridade(novo_nodo)
 
         print(f"Paciente inserido com sucesso. Cartão {novo_nodo.numero} - Cor {novo_nodo.cor}")
 
+    # E. Deve-se implementar a função imprimirListaEspera() em que: [EXIGÊNCIA DE CÓDIGO 5 de 7];
+
+    # a. Deve-se imprimir todos os cartões e seus respectivos números a partir do primeiro até o último da lista.
     def imprimirListaEspera(self):
         atual = self.head
         while atual:
             print(f"Cartão {atual.numero} - Cor {atual.cor}")
             atual = atual.proximo
     # Pacientes com cartão numerado amarelo (A) são chamados antes dos pacientes com cartão numerado verde (V)
+
+
+
+    # F. Deve-se implementar a função atenderPaciente() em que: [EXIGÊNCIA DE CÓDIGO 6 de 7];
+    # a. Deve-se remover o primeiro paciente da fila e imprimir uma mensagem chamando o paciente para atendimento informando o número do seu cartão.
     def atenderPaciente(self):
         if self.head is None:
             print("Não há pacientes na fila.")
@@ -88,10 +103,25 @@ class ListaEncadeada:
             self.head = self.head.proximo
 
 
+
+#G. Deve-se implementar um menu para utilização do sistema em que: [EXIGÊNCIA DE CÓDIGO 7 de 7];
+
+# a. Deve-se apresentar as opções (1 – adicionar paciente a fila, 2 – mostrar pacientes na fila, 3 – chamar paciente, 4 – sair)
+
+# b. Se escolhida a opção 1, chamar a função inserir().
+
+# c. Se escolhida a opção 2, chamar a função imprimirListaEspera().
+
+# d. Se escolhida a opção 3, chamar a função atenderPaciente().
+
+# e. Se escolhida a opção 4, encerrar o programa.
+
+# f. Se escolhida uma opção diferente as opções disponíveis, voltar ao item G.a.
 def menu():
+
     lista = ListaEncadeada()
     while True:
-        print("\nMenu:")
+        print("Menu:")
         print("1 – Adicionar paciente a fila")
         print("2 – Mostrar pacientes na fila")
         print("3 – Chamar paciente")
@@ -111,7 +141,6 @@ def menu():
 
 
 
-
 menu()
 
 
@@ -120,45 +149,16 @@ menu()
 
 
 
-#C. Deve-se implementar a função inserirComPrioridade(nodo) em que: [EXIGÊNCIA DE CÓDIGO 3 de 7];
 
-#                a. Deve-se andar pela lista a partir da cabeça (head) e inserir o nodo após todos os nodos com cor “A” que estão na lista.
 
-#                b. O nodo inserido deve sempre estar antes de todos os nodos com cor “V”.
 
-#D. Deve-se implementar a função inserir() em que: [EXIGÊNCIA DE CÓDIGO 4 de 7];
 
-#                a. Deve-se solicitar ao usuário a cor (“A” ou “V”) e o número (inteiro).
 
-#                b. Deve-se criar um nodo com a cor e o número fornecidos pelo usuário.
 
-#                c. Se a lista estiver vazia, a cabeça (head) da lista deve apontar para o nodo criado.
 
-#                d. Senão, se a cor do nodo for “V”, deve-se chamar a função inserirSemPrioridade(nodo).
 
-#                e. Senão, se a cor do nodo for “A”, deve-se chamar a função inserirComPriordade(nodo).
 
-#E. Deve-se implementar a função imprimirListaEspera() em que: [EXIGÊNCIA DE CÓDIGO 5 de 7];
 
-#                a. Deve-se imprimir todos os cartões e seus respectivos números a partir do primeiro até o último da lista.
-
-#F. Deve-se implementar a função atenderPaciente() em que: [EXIGÊNCIA DE CÓDIGO 6 de 7];
-
-#                a. Deve-se remover o primeiro paciente da fila e imprimir uma mensagem chamando o paciente para atendimento informando o número do seu cartão.
-
-#G. Deve-se implementar um menu para utilização do sistema em que: [EXIGÊNCIA DE CÓDIGO 7 de 7];
-
-#                 a. Deve-se apresentar as opções (1 – adicionar paciente a fila, 2 – mostrar pacientes na fila, 3 – chamar paciente, 4 – sair)
-
-#                 b. Se escolhida a opção 1, chamar a função inserir().
-
-#                 c. Se escolhida a opção 2, chamar a função imprimirListaEspera().
-
-#                 d. Se escolhida a opção 3, chamar a função atenderPaciente().
-
-#                 e. Se escolhida a opção 4, encerrar o programa.
-
-#                 f. Se escolhida uma opção diferente as opções disponíveis, voltar ao item G.a.
 
 #Para testar o software, execute os seguintes passos e apresente a saída do console conforme exemplo de saída de console (próxima página):
 
