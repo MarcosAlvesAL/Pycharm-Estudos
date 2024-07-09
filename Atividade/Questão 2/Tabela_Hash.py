@@ -1,3 +1,5 @@
+#MARCOS ALVES DOS SANTOS JUNIOR RU: 3956503
+# Deve-se implementar a tabela Hash com 10 posições, onde inicialmente todas as posições possuem valor None [EXIGÊNCIA DE CÓDIGO 1 de 7]RU: 3956503;
 # Classe que representa um Nodo de uma lista encadeada simples
 class Nodo:
     def __init__(self, sigla, nome_estado):
@@ -8,11 +10,13 @@ class Nodo:
     def __repr__(self):
         return self.sigla
 
+#Deve-se implementar as Listas Encadeadas Simples em que: [EXIGÊNCIA DE CÓDIGO 2 de 7];
+#O Nodo representa um Estado contendo: sigla, nomeEstado e um ponteiro para o próximo;
+#As 10 posições da tabela hash, representam a cabeça de cada lista (head).
 # Classe que representa uma Lista Encadeada Simples
 class ListaEncadeadaSimples:
     def __init__(self):
         self.head = None
-
     def __repr__(self):
         nodo = self.head
         nodos = []
@@ -21,11 +25,9 @@ class ListaEncadeadaSimples:
             nodo = nodo.proximo
         nodos.append("None")
         return " -> ".join(nodos)
-
     def inserir_no_inicio(self, nodo):
         nodo.proximo = self.head
         self.head = nodo
-
 # Função hash conforme o enunciado
 def funcao_hash(sigla):
     if sigla == 'DF':
@@ -53,20 +55,25 @@ if __name__ == "__main__":
 
     # Inserção dos estados e Distrito Federal na tabela hash
     estados = [
-        ("AC", "Acre"), ("AL", "Alagoas"), ("AP", "Amapá"), ("AM", "Amazonas"),
-        ("BA", "Bahia"), ("CE", "Ceará"), ("DF", "Distrito Federal"), ("ES", "Espírito Santo"),
-        ("GO", "Goiás"), ("MA", "Maranhão"), ("MT", "Mato Grosso"), ("MS", "Mato Grosso do Sul"),
-        ("MG", "Minas Gerais"), ("PA", "Pará"), ("PB", "Paraíba"), ("PR", "Paraná"),
-        ("PE", "Pernambuco"), ("PI", "Piauí"), ("RJ", "Rio de Janeiro"), ("RN", "Rio Grande do Norte"),
-        ("RS", "Rio Grande do Sul"), ("RO", "Rondônia"), ("RR", "Roraima"), ("SC", "Santa Catarina"),
-        ("SP", "São Paulo"), ("SE", "Sergipe"), ("TO", "Tocantins")
+       ("AC", "Acre"), ("AL", "Alagoas"), ("AP", "Amapá"), ("AM", "Amazonas"),
+       ("BA", "Bahia"), ("CE", "Ceará"), ("DF", "Distrito Federal"), ("ES", "Espírito Santo"),
+       ("GO", "Goiás"), ("MA", "Maranhão"), ("MT", "Mato Grosso"), ("MS", "Mato Grosso do Sul"),
+       ("MG", "Minas Gerais"), ("PA", "Pará"), ("PB", "Paraíba"), ("PR", "Paraná"),
+       ("PE", "Pernambuco"), ("PI", "Piauí"), ("RJ", "Rio de Janeiro"), ("RN", "Rio Grande do Norte"),
+       ("RS", "Rio Grande do Sul"), ("RO", "Rondônia"), ("RR", "Roraima"), ("SC", "Santa Catarina"),
+       ("SP", "São Paulo"), ("SE", "Sergipe"), ("TO", "Tocantins")
     ]
+
 
     for sigla, nome in estados:
         tabela_hash.inserir(sigla, nome)
 
     # Inserção do estado fictício
-    tabela_hash.inserir("BK", "Estado Fictício")
+    tabela_hash.inserir("BK", "Bruno Kostiuk")
 
     # Impressão da tabela hash
     tabela_hash.imprimir()
+
+
+
+
